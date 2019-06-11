@@ -1,5 +1,16 @@
 <?php
 
+require get_theme_file_path('/inc/search-route.php');
+
+// Rest api customizing
+function university_custom_rest() {
+    register_rest_field('post', 'authorName', array(
+        'get_callback' => function() {return get_the_author();}
+    ));
+}
+
+add_action('rest_api_init', 'university_custom_rest');
+
 // STYLES & SCRIPTS
 function university_files() {
     // loading styles
@@ -9,6 +20,11 @@ function university_files() {
 
     // loading scripts
     wp_enqueue_script('university-_main_scripts', get_theme_file_uri('/js/scripts-bundled.js'), NULL, microtime(), true);
+
+    // root url
+    wp_localize_script('university-_main_scripts', 'universityData', array(
+        'root_url' => get_site_url()
+    ));
 }
 
 add_action('wp_enqueue_scripts', 'university_files');
