@@ -34,7 +34,7 @@
                         )
                     ));
 
-                    while ($homePageEvents-> have_posts()) {
+                    while ($homePageEvents->have_posts()) {
                         $homePageEvents->the_post();
                         get_template_part('template-parts/content', 'event');
                     }
